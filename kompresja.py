@@ -58,11 +58,11 @@ def convert(text, char_map, out, left: str, add_end_bits: bool, end_bits: int):
     for char in text:
         bajt += str(bin(char_map[char]))[2:].zfill(LEN_OF_VALUE)
         while len(bajt)>=8:
-            out.write(bajt[:8].encode('utf-8'))
+            out.write(int(bajt[:8], 2).to_bytes(1, byteorder='big'))
             bajt = bajt[8:]
     if add_end_bits:
         bajt += (end_bits)*'0'
-        out.write(bajt.encode('utf-8'))
+        out.write(int(bajt).to_bytes(1, byteorder='big'))
         return
     return bajt
 
